@@ -11,4 +11,4 @@ INSTALLATION AND USAGE:<br>
 4 - Run "docu-update" command first to download the .html files from https://www.suse.com/documentation. By default, these files are saved in "$HOME/Documents/". You can change that also by editing the script before the first run. It might be a good idea to set a cronjob to also run the docu-update.sh automatically. The docu-update.sh is set to download new documentation htmls ONLY if a new version is in place on the website<br>
 5 - After the download is done, run docu-search to start searching. If you want to search for all products, use "*" when prompted<br>
 6 - Once you find what you need, open the local page you downloaded with your browser (i suggest using w3m if you want to open that from the terminal)<br>
-7 - enjoy<br>
+7 - Enjoy<br>
