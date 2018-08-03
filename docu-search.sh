@@ -21,8 +21,8 @@ urlnumber=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 grep -ric --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v 0 > $HOME/Documents/www.suse.com/docu-search-urls-matches
 urlnumbermatches=$(grep -rio --include \*.html "$search" $HOME/Documents/www.suse.com/docu-search-urls-matches |wc -l)
 
-grep --color=always -ri --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |sed -e 's/<[^>]*>//g'|tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X 
-#grep --color=always -ri --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X 
+grep --color=always -ri --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |sed -e 's/<[^>]*>//g'|tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X -I
+#grep --color=always -ri --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X -I 
 
 echo " "
 printf "${RED}REPORT:${NC}\n"
