@@ -22,7 +22,7 @@ searchnumber=$(grep -io "$search" $HOME/Documents/www.suse.com/docu-search-resul
 
 echo " "
 printf "${RED}REPORT:${NC}\n"
-echo "$urlnumber URLs found:"
+echo "$urlnumber files found:"
 less -F -X -n $HOME/Documents/www.suse.com/docu-search-urls
 echo " "
 echo "$searchnumber terms found."
