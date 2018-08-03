@@ -12,5 +12,5 @@ echo " "
 printf "${RED}What are you searching for?${NC}\n"
 read search
 
-grep -ril "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ > /tmp/docu-search-urls
+#grep -ril "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ > /tmp/docu-search-urls
 grep --color=always -ri "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |less -R -F -X
