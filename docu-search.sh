@@ -22,9 +22,9 @@ searchnumber=$(grep -io "$search" $HOME/Documents/www.suse.com/docu-search-resul
 
 echo " "
 printf "${RED}REPORT:${NC}\n"
-echo "$urlnumber files found:"
+echo "$urlnumber file(s) found:"
 less -F -X -n $HOME/Documents/www.suse.com/docu-search-urls
 echo " "
-echo "$searchnumber terms found."
+echo "The term '"$search"' had $searchnumber matches."
 echo "The search results were saved to $HOME/Documents/www.suse.com/docu-search-results"
 
