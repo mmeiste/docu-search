@@ -14,10 +14,13 @@ printf "${RED}What are you searching for?${NC}\n"
 echo "Search:" ; read search
 
 echo " "
-echo "RESULTS:"
+printf "${RED}RESULTS:${NC}\n"
 grep -ril "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
-grep --color=always -ri "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |less -R -F -X
+grep --color=always -ri "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |less -R -F -X |tee $HOME/Documents/www.suse.com/docu-search-results
 
 echo " "
-echo "REPORT: The terms you searched were found on:"
+printf "${RED}REPORT: The terms you searched were found on:${NC}\n"
 less -F -X -n $HOME/Documents/www.suse.com/docu-search-urls
+echo " "
+printf "${RED}The search results were saved to $HOME/Documents/www.suse.com/docu-search-results${NC}\n"
+
