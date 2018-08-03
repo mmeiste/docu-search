@@ -1,6 +1,6 @@
 # docu-search
 ABOUT THE PROJECT:<br>
-This is a local documentation search engine for SUSE support engineers based on official documentation releases (https://www.suse.com/documentation). <br>
+This is a local documentation search engine for SUSE support engineers based on official documentation releases (https://www.suse.com/documentation). <br><br>
 The idea is to make a local offline copy of all available documentation and after use grep to search for what you are looking for. The advantage here is that you can search on multiple documentation pages for different products at the same time. Sure, google can also do that for you but the results are normally confusing and disorganized.<br><br>
 The docu-update.sh script will take care of downloading the pages for you while docu-search.sh will prompt you with what is needed to perform the search you want. Note that the search is performed only through html files. PDFs and epub formats are not downloaded<br><br>
 
