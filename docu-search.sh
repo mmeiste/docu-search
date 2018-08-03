@@ -15,16 +15,19 @@ echo "Search:" ; read search
 
 echo " "
 printf "${RED}RESULTS:${NC}\n"
-grep -ril "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
+grep -ril --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
 urlnumber=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
-grep --color=always -ri "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X 
-searchnumber=$(grep -io "$search" $HOME/Documents/www.suse.com/docu-search-results | wc -l)
+
+grep -ric --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v 0 > $HOME/Documents/www.suse.com/docu-search-urls-matches
+urlnumbermatches=$(grep -rio --include \*.html "$search" $HOME/Documents/www.suse.com/docu-search-urls-matches |wc -l)
+
+grep --color=always -ri --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |sed -e 's/<[^>]*>//g'|tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X 
+#grep --color=always -ri --include \*.html "$search" $HOME/Documents/www.suse.com/documentation/$product/singlehtml/ |grep -v "<[^>]*>" |tee $HOME/Documents/www.suse.com/docu-search-results |less -R -F -X 
 
 echo " "
 printf "${RED}REPORT:${NC}\n"
-echo "$urlnumber file(s) found:"
-less -F -X -n $HOME/Documents/www.suse.com/docu-search-urls
+echo "The term '"$search"' was found on $urlnumber file(s):"
+cat $HOME/Documents/www.suse.com/docu-search-urls-matches
 echo " "
-echo "The term '"$search"' had $searchnumber matches."
 echo "The search results were saved to $HOME/Documents/www.suse.com/docu-search-results"
 
