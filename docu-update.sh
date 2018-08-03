@@ -1,0 +1,24 @@
+#!/bin/bash
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-best-practices/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/releasenotes/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-caasp-3/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-caasp-2/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/cloud-application-platform-1/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-enterprise-storage/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/ses-4/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-openstack-cloud-8/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-openstack-cloud-7/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-15/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-12/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-for-sap-15/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-for-sap-12/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sle-ha-15/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sle-ha-12/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/vmdp-24/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sle-ha-geo-15/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sle-ha-geo-12/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-manager-3/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-manager-for-retail/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/slms1/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse_studio/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/smt11/ --directory-prefix $HOME/Documents
