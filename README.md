@@ -14,5 +14,6 @@ INSTALLATION AND USAGE:<br>
 -p, --product = Product that you want to search<br>
 -s, --search = Search string. If you are searching for more then one word, put all into quotes ""<br>
 -i, --case-insensitive = Searches are case insensitive.<br><br>
+-I, --image = Search for png files only
 6 - A list of html files will be displayed on the left side. Do Ctrl+Clink on the links to open them in your webrowser. Once you find what you need, open the page you downloaded with your browser (i suggest using w3m if you want to open that from the terminal. If you want to display images through w3m, dont forget to install "xv" and "w3m-inline-image" packages)<br><br>
 7 - Do the needful ASAP<br>

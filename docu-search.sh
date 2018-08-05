@@ -3,10 +3,10 @@
 RED='\033[0;31m' # Red color
 NC='\033[0m' # No Color
 DATE=$(date +"%d-%m-%Y-%H-%M-%S")
-
 CASE=
 WIZARD=
-FILENAME=
+FILE=html
+LIST=
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -16,9 +16,14 @@ while [ "$1" != "" ]; do
         -s | --search )           shift
                                 SEARCH=$1
                                 ;;
-        -w | --wizard )    WIZARD=1
+        -w | --wizard )           shift
+                                WIZARD=1
                                 ;;
-        -i | --case-insensitive )    CASE=-i
+        -i | --case-insensitive ) shift   
+                                CASE=-i
+                                ;;
+        -I | --image )            shift    
+                                FILE=png ; LIST=-l    
                                 ;;
         -h | --help )           usage
                                 exit
@@ -45,11 +50,11 @@ if [ "$WIZARD" = "1" ]; then
     echo " "
     printf "${RED}RESULTS:${NC}\n"
 # save url list
-    grep -rc $CASE --include \*.html "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \:/ g' > $HOME/Documents/www.suse.com/docu-search-urls-match 
-    grep -rl $CASE --include \*.html "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
+    grep -rc $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \:/ g' > $HOME/Documents/www.suse.com/docu-search-urls-match 
+    grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to less
-    grep --color=always -r $CASE --include \*.html "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/html\:/html \:/g' |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    grep --color=always -r $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
@@ -61,13 +66,13 @@ fi
 ## WIZARD END ##
 
 ## FLAG START ##
-# save url listh
+# save url list
 if [ "$WIZARD" = "" ]; then
-    grep -rc $CASE --include \*.html "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
-    grep -rl $CASE --include \*.html "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
+    grep -rc $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
+    grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to less
-    grep --color=always -r $CASE --include \*.html "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/html\:/html \:/g' |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    grep --color=always -r $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
