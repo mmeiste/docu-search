@@ -107,7 +107,7 @@ fi
 
 ## HELP START ##
 if [ "$HELP" = "yes" ]; then
-    echo "Usage: docu-search -h or -l OR docu-search -p <product> -s <search string> (options: -i -I)"
+    printf "Usage: docu-search -h or -l OR docu-search -p <product> -s <search string> (options: -i -I)"
     echo "-w, --wizard = Run docu-search in interactive mode. You will be prompted to select the product and search string"
     echo "-p, --product = Product that you want to search"
     echo "-s, --search = Search string. If you are searching for more then one word, put all into quotes ("")"
