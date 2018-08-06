@@ -6,7 +6,6 @@ DATE=$(date +"%d-%m-%Y-%H-%M-%S")
 CASE=
 WIZARD=yes
 
-echo $@
 while [ "$1" != "" ]; do
     case $1 in
         -p | --product )        shift
@@ -21,10 +20,10 @@ while [ "$1" != "" ]; do
                                 WIZARD=yes
                                 ;;
         -i | --case-insensitive ) shift   
-                                WIZARD= ; CASE=-i ; FINDCASE=-iname
+                                WIZARD= ; CASE=-i ; FINDCASE=i
                                 ;;
         -I | --image )          shift    
-                                WIZARD= ; FILE=png ; FINDNOCASE=-name 
+                                WIZARD= ; FILE=png ; 
                                 ;;
         -l | --list )           shift    
                                 WIZARD= ; LIST=yes   
@@ -90,21 +89,19 @@ fi
 ## PNG SEARCH START ##
 if [ "$WIZARD" = "" ] && [ "$FILE" = "png" ]; then
 # save url list
-    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-matc
-    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ "$FINDCASE""$FINDNOCASE" *"$SEARCH"*.png > $HOME/Documents/www.suse.com/docu-search-urls 
+    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
+    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f -"$FINDCASE"name *"$SEARCH"*.png > $HOME/Documents/www.suse.com/docu-search-urls 
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to les
-    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f "$FINDCASE""$FINDNOCASE" *"$SEARCH"*.png |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f -"$FINDCASE"name *"$SEARCH"*.png |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
     echo "The term '"$SEARCH"' was found on $URLNUMBER file(s):"
-    cat $HOME/Documents/www.suse.com/docu-search-urls-match
+    cat $HOME/Documents/www.suse.com/docu-search-urls
     echo " "
     echo "The search results were saved to $(ls -t $HOME/Documents/www.suse.com/docu-search-results*| head -1)"
 fi
-
-
 
 ## PNG SEARCH STOP ##
 
