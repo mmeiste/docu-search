@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 # declare variables and set parameters
 RED='\033[0;31m' # Red color
 NC='\033[0m' # No Color
@@ -19,14 +19,14 @@ while [ "$1" != "" ]; do
         -w | --wizard )         shift
                                 WIZARD=yes
                                 ;;
-        -i | --case-insensitive ) shift   
+        -i | --case-insensitive ) shift
                                 WIZARD= ; CASE=-i ; FINDCASE=i
                                 ;;
-        -I | --image )          shift    
-                                WIZARD= ; FILE=png 
+        -I | --image )          shift
+                                WIZARD= ; FILE=png
                                 ;;
-        -l | --list )           shift    
-                                WIZARD= ; LIST=yes   
+        -l | --list )           shift
+                                WIZARD= ; LIST=yes
                                 ;;
         -h | --help )           shift
                                 WIZARD= ; HELP=yes
@@ -53,11 +53,11 @@ if [ "$WIZARD" = "yes" ]; then
     echo " "
     printf "${RED}RESULTS:${NC}\n"
 # save url list
-    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \:/ g' > $HOME/Documents/www.suse.com/docu-search-urls-match 
+    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \:/ g' > $HOME/Documents/www.suse.com/docu-search-urls-match
     grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
    # URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to less
-    grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v '<.*>\|^--.*' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
@@ -75,7 +75,7 @@ if [ "$WIZARD" = "" ] && [ "$FILE" = "html" ]; then
     grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to less
-    grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v '<.*>\|^--.*' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
@@ -90,7 +90,7 @@ fi
 if [ "$WIZARD" = "" ] && [ "$FILE" = "png" ]; then
 # save url list
     grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
-    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f -"$FINDCASE"name *"$SEARCH"*.png > $HOME/Documents/www.suse.com/docu-search-urls 
+    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f -"$FINDCASE"name *"$SEARCH"*.png > $HOME/Documents/www.suse.com/docu-search-urls
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to les
     find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f -"$FINDCASE"name *"$SEARCH"*.png |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
@@ -115,13 +115,13 @@ if [ "$HELP" = "yes" ]; then
     echo "-I, --image = Search for png files only"
     echo "-l, --list = Display a list of products that you can select"
     echo "-h, --help = Display a list of options to chose from"
-fi    
+fi
 ## HELP STOP ##
 
 ## LIST START ##
 if [ "$LIST" = "yes" ]; then
     printf "${RED}What is the product you want to search? Possible values are listed bellow:${NC}\n"
-    printf "${RED}NOTE: You can also use "*" character as a wildcard (example: "sles*")${NC}\n" 
-    ls $HOME/Documents/www.suse.com/documentation 
+    printf "${RED}NOTE: You can also use "*" character as a wildcard (example: "sles*")${NC}\n"
+    ls $HOME/Documents/www.suse.com/documentation
 fi
 ## LIST STOP ##
