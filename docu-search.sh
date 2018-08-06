@@ -74,7 +74,9 @@ if [ "$WIZARD" = "" ] && [ "$FILE" = "html" ]; then
     grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
     grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
+    #TEXTCONVERT=$(cat $HOME/Documents/www.suse.com/docu-search-urls |xargs -L 1 w3m -dump "$1" 2> /dev/null >> $HOME/Documents/www.suse.com/docu-search-urls-text.txt)
 # perform search and pipe it to less
+    #grep --color=always $CASE "$SEARCH" $HOME/Documents/www.suse.com/docu-search-urls-text.txt |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
     grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v '<.*>\|^--.*' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
