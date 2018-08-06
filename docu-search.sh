@@ -23,7 +23,7 @@ while [ "$1" != "" ]; do
                                 WIZARD= ; CASE=-i ; FINDCASE=i
                                 ;;
         -I | --image )          shift    
-                                WIZARD= ; FILE=png ; 
+                                WIZARD= ; FILE=png 
                                 ;;
         -l | --list )           shift    
                                 WIZARD= ; LIST=yes   
