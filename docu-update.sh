@@ -10,6 +10,7 @@ wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentatio
 wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/suse-openstack-cloud-7/ --directory-prefix $HOME/Documents
 wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-15/ --directory-prefix $HOME/Documents
 wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-12/ --directory-prefix $HOME/Documents
+wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles11/ --directory-prefix $HOME/Documents
 wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-for-sap-15/ --directory-prefix $HOME/Documents
 wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sles-for-sap-12/ --directory-prefix $HOME/Documents
 wget -c -N -r --no-parent -A html,png,css -t 1 https://www.suse.com/documentation/sle-ha-15/ --directory-prefix $HOME/Documents
