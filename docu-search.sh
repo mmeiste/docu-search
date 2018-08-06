@@ -4,39 +4,43 @@ RED='\033[0;31m' # Red color
 NC='\033[0m' # No Color
 DATE=$(date +"%d-%m-%Y-%H-%M-%S")
 CASE=
-WIZARD=
-FILE=html
-LIST=
+WIZARD=yes
 
+echo $@
 while [ "$1" != "" ]; do
     case $1 in
-        -p | --product )           shift
-                                PRODUCT=$1
+        -p | --product )        shift
+                                WIZARD= ; PRODUCT=$1 ; FILE=html
+                                shift
                                 ;;
-        -s | --search )           shift
-                                SEARCH=$1
+        -s | --search )         shift
+                                WIZARD= ; SEARCH=$1 ; FILE=html
+                                shift
                                 ;;
-        -w | --wizard )           shift
-                                WIZARD=1
+        -w | --wizard )         shift
+                                WIZARD=yes
                                 ;;
         -i | --case-insensitive ) shift   
-                                CASE=-i
+                                WIZARD= ; CASE=-i
                                 ;;
-        -I | --image )            shift    
-                                FILE=png ; LIST=-l    
+        -I | --image )          shift    
+                                WIZARD= ; FILE=png   
                                 ;;
-        -h | --help )           usage
+        -l | --list )           shift    
+                                WIZARD= ; LIST=yes   
+                                ;;
+        -h | --help )           shift
+                                WIZARD= ; HELP=yes
                                 exit
                                 ;;
         * )                     usage
                                 exit 1
     esac
-    shift
 done
 
 ## WIZARD START ##
 # get product and search variables
-if [ "$WIZARD" = "1" ]; then
+if [ "$WIZARD" = "yes" ]; then
     echo " "
     printf "${RED}What is the product you want to search? Possible values are listed bellow:${NC}\n"
     printf "${RED}NOTE: You can also use "*" character as a wildcard (example: "sles*" will perform a search on all sles products). The search is case insensitive${NC}\n"
@@ -50,11 +54,11 @@ if [ "$WIZARD" = "1" ]; then
     echo " "
     printf "${RED}RESULTS:${NC}\n"
 # save url list
-    grep -rc $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \:/ g' > $HOME/Documents/www.suse.com/docu-search-urls-match 
+    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \:/ g' > $HOME/Documents/www.suse.com/docu-search-urls-match 
     grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
-    URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
+   # URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to less
-    grep --color=always -r $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
@@ -65,14 +69,14 @@ if [ "$WIZARD" = "1" ]; then
 fi
 ## WIZARD END ##
 
-## FLAG START ##
+## HTML SEARCH START ##
 # save url list
-if [ "$WIZARD" = "" ]; then
-    grep -rc $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
+if [ "$WIZARD" = "" ] && [ "$FILE" = "html" ]; then
+    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-match
     grep -rl $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ > $HOME/Documents/www.suse.com/docu-search-urls
     URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
 # perform search and pipe it to less
-    grep --color=always -r $LIST $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+    grep --color=always -r $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |sed -e 's/<[^>]*>//g' |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
 # show report
     echo " "
     printf "${RED}REPORT:${NC}\n"
@@ -81,4 +85,28 @@ if [ "$WIZARD" = "" ]; then
     echo " "
     echo "The search results were saved to $(ls -t $HOME/Documents/www.suse.com/docu-search-results*| head -1)"
 fi
-## FLAG END ##
+## HTML SEARCH END ##
+
+## PNG SEARCH START ##
+## PNG SEARCH STOP ##
+
+## HELP START ##
+if [ "$HELP" = "yes" ]; then
+    echo "Usage: docu-search -h or -l OR docu-search -p <product> -s <search string> (options: -i -I)"
+    echo "-w, --wizard = Run docu-search in interactive mode. You will be prompted to select the product and search string"
+    echo "-p, --product = Product that you want to search"
+    echo "-s, --search = Search string. If you are searching for more then one word, put all into quotes ("")"
+    echo "-i, --case-insensitive = Searches are case insensitive."
+    echo "-I, --image = Search for png files only"
+    echo "-l, --list = Display a list of products that you can select"
+    echo "-h, --help = Display a list of options to chose from"
+fi    
+## HELP STOP ##
+
+## LIST START ##
+if [ "$LIST" = "yes" ]; then
+    printf "${RED}What is the product you want to search? Possible values are listed bellow:${NC}\n"
+    printf "${RED}NOTE: You can also use "*" character as a wildcard (example: "sles*")${NC}\n" 
+    ls $HOME/Documents/www.suse.com/documentation 
+fi
+## LIST STOP ##

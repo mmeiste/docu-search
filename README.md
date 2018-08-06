@@ -11,9 +11,11 @@ INSTALLATION AND USAGE:<br>
 4 - Run "docu-update" command first to download the html files from https://www.suse.com/documentation. By default, these files are saved in "$HOME/Documents/". You can change that also by editing the script before the first run. It might be a good idea to set a cronjob to also run the docu-update.sh automatically. The docu-update.sh is set to download new documentation htmls ONLY if a new version is in place on the website. PNG and CSS files are also saved in case you want to browse the documentation offline<br><br>
 5 - After the download is done, run docu-search to start searching. The default parameters are described bellow:<br>
 -w, --wizard = Run docu-search in interactive mode. You will be prompted to select the product and search string<br>
--p, --product = Product that you want to search<br>
--s, --search = Search string. If you are searching for more then one word, put all into quotes ""<br>
--i, --case-insensitive = Searches are case insensitive.<br><br>
--I, --image = Search for png files only
-6 - A list of html files will be displayed on the left side. Do Ctrl+Clink on the links to open them in your webrowser. Once you find what you need, open the page you downloaded with your browser (i suggest using w3m if you want to open that from the terminal. If you want to display images through w3m, dont forget to install "xv" and "w3m-inline-image" packages)<br><br>
+-p, --product = Product that you want to search"<br>
+-s, --search = Search string. If you are searching for more then one word, put all into quotes ("")"<br>
+-i, --case-insensitive = Searches are case insensitive."<br>
+-I, --image = Search for png files only"<br>
+-l, --list = Display a list of products that you can select"<br>
+-h, --help = Display a list of options to chose from"<br><br>
+6 - A list of html files will be displayed on the left side. Do Ctrl+Clink on the links to open them in your webrowser. Once you find what you need, open the page you downloaded with your browser (i suggest using w3m if you want to open that from the terminal. If you want to display images through w3m, dont forget to install "xv" and "w3m-inline-image" packages)<br>
 7 - Do the needful ASAP<br>
