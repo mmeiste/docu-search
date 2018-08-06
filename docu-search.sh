@@ -21,10 +21,10 @@ while [ "$1" != "" ]; do
                                 WIZARD=yes
                                 ;;
         -i | --case-insensitive ) shift   
-                                WIZARD= ; CASE=-i
+                                WIZARD= ; CASE=-i ; FINDCASE=-iname
                                 ;;
         -I | --image )          shift    
-                                WIZARD= ; FILE=png   
+                                WIZARD= ; FILE=png ; FINDNOCASE=-name 
                                 ;;
         -l | --list )           shift    
                                 WIZARD= ; LIST=yes   
@@ -88,6 +88,24 @@ fi
 ## HTML SEARCH END ##
 
 ## PNG SEARCH START ##
+if [ "$WIZARD" = "" ] && [ "$FILE" = "png" ]; then
+# save url list
+    grep -rc $CASE --include \*.$FILE "$SEARCH" $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ |grep -v \:0 |sed -e 's/html\:/html \: /g' > $HOME/Documents/www.suse.com/docu-search-urls-matc
+    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ "$FINDCASE""$FINDNOCASE" *"$SEARCH"*.png > $HOME/Documents/www.suse.com/docu-search-urls 
+    URLNUMBER=$(cat $HOME/Documents/www.suse.com/docu-search-urls |wc -l)
+# perform search and pipe it to les
+    find $HOME/Documents/www.suse.com/documentation/$PRODUCT/singlehtml/ -type f "$FINDCASE""$FINDNOCASE" *"$SEARCH"*.png |sed "s|$HOME\/Documents\/||g" |tee $HOME/Documents/www.suse.com/docu-search-results-$DATE |less -R -F -X -I
+# show report
+    echo " "
+    printf "${RED}REPORT:${NC}\n"
+    echo "The term '"$SEARCH"' was found on $URLNUMBER file(s):"
+    cat $HOME/Documents/www.suse.com/docu-search-urls-match
+    echo " "
+    echo "The search results were saved to $(ls -t $HOME/Documents/www.suse.com/docu-search-results*| head -1)"
+fi
+
+
+
 ## PNG SEARCH STOP ##
 
 ## HELP START ##
