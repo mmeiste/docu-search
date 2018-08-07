@@ -4,7 +4,7 @@ RED='\033[0;31m' # Red color
 NC='\033[0m' # No Color
 DATE=$(date +"%d-%m-%Y-%H-%M-%S")
 CASE=
-WIZARD=yes
+WIZARD=
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -30,10 +30,10 @@ while [ "$1" != "" ]; do
                                 ;;
         -h | --help )           shift
                                 WIZARD= ; HELP=yes
-                                exit
                                 ;;
-        * )                     usage
-                                exit 1
+        * )                     shift 
+                                HELP=yes
+				;;
     esac
 done
 
